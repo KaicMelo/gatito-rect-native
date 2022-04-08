@@ -1,6 +1,6 @@
 
-import { Text, SafeAreaView, StatusBar, FlatList } from 'react-native';
-
+import { Text, SafeAreaView, StatusBar, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
+import globalStyles from '../../styles'
 import Itens from './Itens';
 
 const services = [
@@ -31,11 +31,15 @@ const services = [
 ]
 
 export default function Services() {
-    return <SafeAreaView>
+    return <SafeAreaView style={globalStyles.fill}>
         <StatusBar />
-        <FlatList
-            data={services} 
-            renderItem={({item}) => <Itens {...item} />}
-            keyExtractor={ ({id}) => String(id)} />
+        <KeyboardAvoidingView
+        behavior={Platform.OS == "ios"?"padding":"height"}
+        style={globalStyles.fill}>
+            <FlatList
+                data={services} 
+                renderItem={({item}) => <Itens {...item} />}
+                keyExtractor={ ({id}) => String(id)} />
+        </KeyboardAvoidingView>
     </SafeAreaView>
 }
